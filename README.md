@@ -4,3 +4,5 @@
      -npm create vite@latest name-of-your-project -- --template react
 - 2. Secondly I install the react-router-dom .
      -npm install react-router-dom localforage match-sorter sort-by
+- 3. For CSS I use here tailwind css
+     source: https://tailwindcss.com/docs/guides/vite
