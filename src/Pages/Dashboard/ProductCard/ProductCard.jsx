@@ -5,7 +5,7 @@ import { MdOutlineAirplaneTicket } from "react-icons/md";
 
 const ProductCard = () => {
 	return (
-		<div>
+		<div className="pb-8 pt-2">
 			<div className="grid grid-cols-2 gap-4 px-4 mt-8 sm:grid-cols-4 sm:px-8">
 				<div className=" flex items-center bg-white border rounded-sm overflow-hidden border-r-teal-400 shadow-teal-400 shadow">
 					<div className="p-4  bg-teal-400">

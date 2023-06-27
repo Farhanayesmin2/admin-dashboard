@@ -1,170 +1,157 @@
-import React from "react";
+import { useEffect, useState } from "react";
 import ApexCharts from "apexcharts";
+import data from "./../../../../public/allinfo.json"; // Import the JSON data
 
 const LineWithData = () => {
-	const [passengerData, setPassengerData] = React.useState([]);
+	const [series, setSeries] = useState([]);
 
-	React.useEffect(() => {
-		const fetchData = async () => {
-			try {
-				const response = await fetch("/data.json");
-				const data = await response.json();
-				setPassengerData(data);
-			} catch (error) {
-				console.error("Error fetching data:", error);
+	useEffect(() => {
+		// Initialize count variables
+		let maleCount = 0;
+		let femaleCount = 0;
+		let firstClassCount = 0;
+		let secondClassCount = 0;
+		let thirdClassCount = 0;
+		let age18to30Count = 0;
+		let age30to60Count = 0;
+
+		// Iterate through the JSON data and calculate counts
+		for (let i = 0; i < data.length; i++) {
+			// Count sex
+			if (data[i].Sex === "male") {
+				maleCount++;
+			} else if (data[i].Sex === "female") {
+				femaleCount++;
 			}
-		};
 
-		fetchData();
-	}, []);
+			// Count pclass
+			if (data[i].Pclass === 1) {
+				firstClassCount++;
+			} else if (data[i].Pclass === 2) {
+				secondClassCount++;
+			} else if (data[i].Pclass === 3) {
+				thirdClassCount++;
+			}
 
-	React.useEffect(() => {
-		if (passengerData.length === 0) return;
+			// Count age
+			const age = data[i].Age;
+			if (age >= 18 && age <= 30) {
+				age18to30Count++;
+			} else if (age > 30 && age <= 60) {
+				age30to60Count++;
+			}
+		}
 
-		const categories = passengerData.map((entry) => entry.PassengerId);
-		const seriesData = [
-			{
-				name: "Dead",
-				data: passengerData.map((entry) => (entry.Survived === 0 ? 1 : null)),
-			},
-			{
-				name: "Alive",
-				data: passengerData.map((entry) => (entry.Survived === 1 ? 1 : null)),
-			},
+		// Create the series array
+		const newSeries = [
+			maleCount,
+			femaleCount,
+			age18to30Count,
+			age30to60Count,
+			firstClassCount,
+			secondClassCount,
+			thirdClassCount,
 		];
 
+		// Update the series state
+		setSeries(newSeries);
+
+		// Define custom colors for each data point
+		const colors = [
+			"#22d3ee",
+			"#fb7185",
+			"#c026d3",
+			"#FEB019",
+			"#775DD0",
+			"#F86624",
+			"#3D3D3D",
+		];
+
+		// ApexCharts options
 		const options = {
-			series: seriesData,
+			series: newSeries,
 			chart: {
-				id: "area-datetime",
-				type: "area",
-				height: 350,
-				zoom: {
-					autoScaleYaxis: true,
-				},
+				width: "100%",
+
+				type: "polarArea",
 			},
-			annotations: {
-				yaxis: [
-					{
-						y: 30,
-						borderColor: "#999",
-						label: {
-							show: true,
-							text: "Support",
-							style: {
-								color: "#fff",
-								background: "#00E396",
-							},
-						},
-					},
-				],
-				xaxis: [
-					{
-						x: new Date("14 Nov 2012").getTime(),
-						borderColor: "#999",
-						yAxisIndex: 0,
-						label: {
-							show: true,
-							text: "Rally",
-							style: {
-								color: "#fff",
-								background: "#775DD0",
-							},
-						},
-					},
-				],
-			},
-			dataLabels: {
-				enabled: false,
-			},
-			markers: {
-				size: 0,
-				style: "hollow",
-			},
-			xaxis: {
-				type: "datetime",
-				min: new Date("01 Mar 2012").getTime(),
-				tickAmount: 6,
-			},
-			tooltip: {
-				x: {
-					format: "dd MMM yyyy",
-				},
-			},
+			labels: [
+				"Male",
+				"Female",
+				"18-30 Age",
+				"30-60 Age",
+				"First Class Passenger",
+				"Second Class Passenger",
+				"Third Class Passenger",
+			],
 			fill: {
-				type: "gradient",
-				gradient: {
-					shadeIntensity: 1,
-					opacityFrom: 0.7,
-					opacityTo: 0.9,
-					stops: [0, 100],
+				opacity: 1,
+			},
+			stroke: {
+				width: 1,
+				colors: undefined,
+			},
+			yaxis: {
+				show: false,
+			},
+			legend: {
+				position: "right",
+				offsetY: 0,
+				height: 550,
+			},
+			plotOptions: {
+				polarArea: {
+					rings: {
+						strokeWidth: 0,
+					},
+					spokes: {
+						strokeWidth: 0,
+					},
 				},
 			},
+			theme: {
+				monochrome: {
+					enabled: true,
+					shadeTo: "light",
+					shadeIntensity: 0.6,
+				},
+			},
+			colors: colors, // Set the custom colors
+			responsive: [
+				{
+					breakpoint: 480,
+					options: {
+						chart: {
+							width: 200,
+						},
+						legend: {
+							show: true,
+						},
+					},
+				},
+			],
 		};
 
+		// Render the chart
 		const chart = new ApexCharts(document.querySelector("#chart"), options);
 		chart.render();
 
-		const resetCssClasses = function (activeEl) {
-			const els = document.querySelectorAll("button");
-			Array.prototype.forEach.call(els, function (el) {
-				el.classList.remove("active");
-			});
-
-			activeEl.target.classList.add("active");
+		// Cleanup
+		return () => {
+			chart.destroy();
 		};
-
-		document
-			.querySelector("#one_month")
-			.addEventListener("click", function (e) {
-				resetCssClasses(e);
-
-				chart.zoomX(
-					new Date("28 Jan 2013").getTime(),
-					new Date("27 Feb 2013").getTime()
-				);
-			});
-
-		document
-			.querySelector("#six_months")
-			.addEventListener("click", function (e) {
-				resetCssClasses(e);
-
-				chart.zoomX(
-					new Date("27 Sep 2012").getTime(),
-					new Date("27 Feb 2013").getTime()
-				);
-			});
-
-		document.querySelector("#one_year").addEventListener("click", function (e) {
-			resetCssClasses(e);
-
-			chart.zoomX(
-				new Date("27 Feb 2012").getTime(),
-				new Date("27 Feb 2013").getTime()
-			);
-		});
-
-		document.querySelector("#ytd").addEventListener("click", function (e) {
-			resetCssClasses(e);
-
-			chart.zoomX(
-				new Date("01 Jan 2013").getTime(),
-				new Date("27 Feb 2013").getTime()
-			);
-		});
-	}, [passengerData]);
+	}, []);
 
 	return (
-		<div id="chart">
-			<div id="chart-timeline"></div>
-
-			<button id="one_month">1 Month</button>
-			<button id="six_months">6 Months</button>
-			<button id="one_year">1 Year</button>
-			<button id="ytd">YTD</button>
-			<button id="all">All</button>
-		</div>
+		<>
+			<h1 className="text-center py-2  text-xl font-sans text-gray-600 font-semibold">
+				Passenger Information:
+			</h1>
+			<div
+				id="chart"
+				className="shadow-lg shadow-sky-400 border-2 border-t-sky-500"
+			></div>
+		</>
 	);
 };
 

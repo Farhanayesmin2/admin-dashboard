@@ -1,14 +1,14 @@
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import ApexCharts from "apexcharts";
-import LineWithData from "../LineWithData/LineWithData";
 
 const GenderData = () => {
 	const chartRef = useRef(null);
+	const [loading, setLoading] = useState(true);
 
 	useEffect(() => {
 		const fetchData = async () => {
 			try {
-				const response = await fetch("/public/data.json");
+				const response = await fetch("/data.json");
 				const data = await response.json();
 
 				const { totalDead, totalAlive } = getTotalDeadAndAlive(data);
@@ -39,12 +39,14 @@ const GenderData = () => {
 					legend: {
 						position: "right",
 						offsetY: 0,
-						height: 230,
+						height: 250,
 					},
 				};
 
 				const chart = new ApexCharts(chartRef.current, options);
 				chart.render();
+
+				setLoading(false);
 
 				return () => {
 					chart.destroy();
@@ -72,93 +74,21 @@ const GenderData = () => {
 		return { totalDead, totalAlive };
 	};
 
+	if (loading) {
+		return <div>Loading...</div>;
+	}
+
 	return (
-		<div className="border-2 border-red-500 w-full">
-			<h1 className="text-start pl-10 text-xl font-sans text-gray-600 font-semibold">
+		<>
+			<h1 className="text-center py-2  text-xl font-sans text-gray-600 font-semibold">
 				Passenger Survive:
 			</h1>
-			<div ref={chartRef}></div>
-			<LineWithData></LineWithData>
-		</div>
+			<div
+				className="py-5 shadow-lg shadow-green-400 border-2 border-t-green-500"
+				ref={chartRef}
+			></div>
+		</>
 	);
 };
 
 export default GenderData;
-
-// import { useEffect } from "react";
-// import ApexCharts from "apexcharts";
-
-// const GenderData = () => {
-// 	useEffect(() => {
-// 		const options = {
-// 			series: [44, 55, 13, 33], // Replace with your data series
-// 			chart: {
-// 				width: 380,
-// 				type: "donut",
-// 			},
-// 			dataLabels: {
-// 				enabled: false,
-// 			},
-// 			responsive: [
-// 				{
-// 					breakpoint: 480,
-// 					options: {
-// 						chart: {
-// 							width: 200,
-// 						},
-// 						legend: {
-// 							show: false,
-// 						},
-// 					},
-// 				},
-// 			],
-// 			legend: {
-// 				position: "right",
-// 				offsetY: 0,
-// 				height: 230,
-// 			},
-// 		};
-
-// 		const chart = new ApexCharts(document.getElementById("chart"), options);
-// 		chart.render();
-
-// 		// Clean up
-// 		return () => {
-// 			chart.destroy();
-// 		};
-// 	}, []);
-
-// 	const appendData = () => {
-// 		const arr = chart.w.globals.series.slice();
-// 		arr.push(Math.floor(Math.random() * (100 - 1 + 1)) + 1);
-// 		return arr;
-// 	};
-
-// 	const removeData = () => {
-// 		const arr = chart.w.globals.series.slice();
-// 		arr.pop();
-// 		return arr;
-// 	};
-
-// 	const randomize = () => {
-// 		return chart.w.globals.series.map(() => {
-// 			return Math.floor(Math.random() * (100 - 1 + 1)) + 1;
-// 		});
-// 	};
-
-// 	const reset = () => {
-// 		return options.series;
-// 	};
-
-// 	return (
-// 		<div>
-// 			<div id="chart"></div>
-// 			<button onClick={() => chart.updateSeries(randomize())}>Randomize</button>
-// 			<button onClick={() => chart.updateSeries(appendData())}>Add</button>
-// 			<button onClick={() => chart.updateSeries(removeData())}>Remove</button>
-// 			<button onClick={() => chart.updateSeries(reset())}>Reset</button>
-// 		</div>
-// 	);
-// };
-
-// export default GenderData;
