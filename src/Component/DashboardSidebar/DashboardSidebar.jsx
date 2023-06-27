@@ -106,12 +106,14 @@ const DashboardSidebar = ({ sidebarOpen, setSidebarOpen }) => {
 									return (
 										<>
 											<NavLink
-												to="#"
-												className={`group relative flex items-center gap-2.5 rounded-sm py-2 px-4 font-medium text-bodydark1 duration-300 ease-in-out hover:bg-graydark dark:hover:bg-meta-4 ${
-													(pathname === "/" ||
-														pathname.includes("dashboard")) &&
-													"bg-white dark:bg-meta-4 rounded-l-xl"
-												}`}
+												to="/dashboard"
+												className={({ isActive }) =>
+													`group relative flex items-center gap-2.5 rounded-sm py-2 px-4 font-medium text-bodydark1 duration-300 ease-in-out hover:bg-graydark dark:hover:bg-meta-4 ${
+														isActive
+															? "bg-white dark:bg-meta-4 rounded-l-xl"
+															: ""
+													}`
+												}
 												onClick={(e) => {
 													e.preventDefault();
 													sidebarExpanded
@@ -142,10 +144,13 @@ const DashboardSidebar = ({ sidebarOpen, setSidebarOpen }) => {
 												<ul className="mt-4 mb-5.5 flex flex-col gap-2.5 pl-6">
 													<li>
 														<NavLink
-															to="/"
+															to="/dashboard/product"
 															className={({ isActive }) =>
-																"group relative flex items-center gap-2.5 rounded-md px-4 font-medium  duration-300 ease-in-out hover:text-black " +
-																(isActive && "!text-black")
+																`group relative flex items-center gap-2.5 rounded-md px-4 font-medium duration-300 ease-in-out hover:text-black ${
+																	isActive
+																		? "bg-white dark:bg-meta-4 rounded-l-xl"
+																		: ""
+																}`
 															}
 														>
 															<BsCart3
@@ -167,7 +172,7 @@ const DashboardSidebar = ({ sidebarOpen, setSidebarOpen }) => {
 							{/* <!-- Menu Item Chart --> */}
 							<li>
 								<NavLink
-									to="/chart"
+									to="/dashboard/chart"
 									className={`group relative flex items-center gap-2.5 rounded-sm py-2 px-4 font-medium text-bodydark1 duration-300 ease-in-out hover:bg-graydark dark:hover:bg-meta-4 ${
 										pathname.includes("chart") &&
 										"bg-white dark:bg-meta-4 rounded-l-xl"

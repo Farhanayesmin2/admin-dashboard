@@ -6,6 +6,8 @@ import Register from "../Pages/Register/Register";
 import Login from "../Pages/Login/Login";
 import DashboardLayout from "../Layout/DashboardLayout/DashboardLayout";
 import Dashboard from "../Pages/Dashboard/Dashboard";
+import Data from "../Pages/DataChart/Data/Data";
+import ProductCard from "../Pages/Dashboard/ProductCard/ProductCard";
 
 const router = createBrowserRouter([
 	{
@@ -35,6 +37,14 @@ const router = createBrowserRouter([
 			{
 				path: "dashboard",
 				element: <Dashboard></Dashboard>,
+			},
+			{
+				path: "data",
+				element: <Data></Data>,
+			},
+			{
+				path: "product",
+				element: <ProductCard></ProductCard>,
 			},
 		],
 	},
