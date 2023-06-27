@@ -1,6 +1,7 @@
 import GenderData from "../../Dashboard/GenderData/GenderData";
 import LineWithData from "../../Dashboard/LineWithData/LineWithData";
 import ProductCard from "../../Dashboard/ProductCard/ProductCard";
+import RadialBarChart from "../../Dashboard/RadialBarChart/RadialBarChart";
 
 const Data = () => {
 	return (
@@ -14,6 +15,7 @@ const Data = () => {
 					<LineWithData></LineWithData>
 				</div>
 			</div>
+			<RadialBarChart></RadialBarChart>
 		</>
 	);
 };
