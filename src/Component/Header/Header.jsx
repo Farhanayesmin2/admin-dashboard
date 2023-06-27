@@ -1,13 +1,19 @@
 import { Link } from "react-router-dom";
-
-import DarkModeSwitcher from "./DarkModeSwitcher";
-import DropdownMessage from "./DropdownMessage";
-import DropdownNotification from "./DropdownNotification";
-import DropdownUser from "./DropdownUser";
-
+import { IoMdNotificationsOutline } from "react-icons/io";
+import { BsChatDots } from "react-icons/bs";
+import DarkMode from "../DarkMode/DarkMode";
+import UserProfile from "../UserProfile/UserProfile";
+import { BsList, BsX } from "react-icons/bs";
+import { useState } from "react";
 const Header = ({ sidebarOpen, setSidebarOpen }) => {
+	const [isOpen, setIsOpen] = useState(false);
+
+	const toggleMenu = () => {
+		setIsOpen(!isOpen);
+	};
+
 	return (
-		<header className="sticky top-0 z-999 flex w-full bg-white drop-shadow-1 dark:bg-boxdark dark:drop-shadow-none">
+		<header className="bg-gray-50  sticky top-0 z-999 flex w-full  drop-shadow-1 dark:bg-boxdark dark:drop-shadow-none">
 			<div className="flex flex-grow items-center justify-between py-4 px-4 shadow-2 md:px-6 2xl:px-11">
 				<div className="flex items-center gap-2 sm:gap-4 lg:hidden">
 					{/* <!-- Hamburger Toggle BTN --> */}
@@ -19,7 +25,7 @@ const Header = ({ sidebarOpen, setSidebarOpen }) => {
 						}}
 						className="z-99999 block rounded-sm border border-stroke bg-white p-1.5 shadow-sm dark:border-strokedark dark:bg-boxdark lg:hidden"
 					>
-						<span className="relative block h-5.5 w-5.5 cursor-pointer">
+						{/* <span className="relative block h-5.5 w-5.5 cursor-pointer">
 							<span className="du-block absolute right-0 h-full w-full">
 								<span
 									className={`relative top-0 left-0 my-1 block h-0.5 w-0 rounded-sm bg-black delay-[0] duration-200 ease-in-out dark:bg-white ${
@@ -49,16 +55,16 @@ const Header = ({ sidebarOpen, setSidebarOpen }) => {
 									}`}
 								></span>
 							</span>
-						</span>
+						</span> */}
+						{isOpen ? (
+							<BsX className="menu-icon" onClick={toggleMenu} />
+						) : (
+							<BsList className="menu-icon" onClick={toggleMenu} />
+						)}
 					</button>
 					{/* <!-- Hamburger Toggle BTN --> */}
 
-					<Link className="block flex-shrink-0 lg:hidden" to="/">
-						<img
-							src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSAMbgyyQPC6iBFWrAgLKcXuv3oebJHblmlUw&usqp=CAU"
-							alt="Logo"
-						/>
-					</Link>
+					<Link className="block flex-shrink-0 lg:hidden" to="/"></Link>
 				</div>
 
 				<div className="hidden sm:block">
@@ -100,20 +106,25 @@ const Header = ({ sidebarOpen, setSidebarOpen }) => {
 				<div className="flex items-center gap-3 2xsm:gap-7">
 					<ul className="flex items-center gap-2 2xsm:gap-4">
 						{/* <!-- Dark Mode Toggler --> */}
-						<DarkModeSwitcher />
+						<DarkMode />
 						{/* <!-- Dark Mode Toggler --> */}
+						{/* <!-- Notification Menu Area --> */}
+						<div className="shadow-xl shadow-purple-400 bg-white  flex h-8 w-8  items-center justify-center rounded-full">
+							<IoMdNotificationsOutline className="text-black"></IoMdNotificationsOutline>
+						</div>
 
 						{/* <!-- Notification Menu Area --> */}
-						<DropdownNotification />
-						{/* <!-- Notification Menu Area --> */}
-
 						{/* <!-- Chat Notification Area --> */}
-						<DropdownMessage />
+
+						<div className="shadow-xl shadow-purple-400 bg-white  flex h-8 w-8  items-center justify-center rounded-full">
+							<BsChatDots></BsChatDots>
+						</div>
+
 						{/* <!-- Chat Notification Area --> */}
 					</ul>
 
 					{/* <!-- User Area --> */}
-					<DropdownUser />
+					<UserProfile />
 					{/* <!-- User Area --> */}
 				</div>
 			</div>
