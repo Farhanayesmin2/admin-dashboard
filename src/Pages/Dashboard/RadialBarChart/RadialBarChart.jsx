@@ -1,16 +1,20 @@
 import { useEffect, useRef, useState } from "react";
 import ApexCharts from "apexcharts";
-import data from "./../../../../public/allinfo.json"; // Import the JSON data
+import { useSpinner } from "../../../Hooks/useSpinner";
 
 const RadialBarChart = () => {
-	const chartRef = useRef(null);
 	const [loading, setLoading] = useState(true);
-
+	const [data, setData] = useState([]);
+	const { Spinner } = useSpinner();
 	useEffect(() => {
 		const fetchData = async () => {
 			try {
+				const response = await fetch("/public/allinfo.json"); // Replace "/data.json" with the actual URL or path to your JSON data
+				const jsonData = await response.json();
+				setData(jsonData);
+
 				// Calculate the total number of passengers
-				const totalPassenger = data.length;
+				const totalPassenger = jsonData.length;
 
 				// Initialize count variables
 				let maleCount = 0;
@@ -18,11 +22,11 @@ const RadialBarChart = () => {
 				let totalTicketCount = 0;
 
 				// Iterate through the JSON data and calculate counts
-				for (let i = 0; i < data.length; i++) {
+				for (let i = 0; i < jsonData.length; i++) {
 					// Count sex
-					if (data[i].Sex === "male") {
+					if (jsonData[i].Sex === "male") {
 						maleCount++;
-					} else if (data[i].Sex === "female") {
+					} else if (jsonData[i].Sex === "female") {
 						femaleCount++;
 					}
 
@@ -38,7 +42,7 @@ const RadialBarChart = () => {
 					totalTicketCount,
 				];
 
-				const options = {
+				const optionsRadial = {
 					series,
 					chart: {
 						height: 350,
@@ -70,13 +74,28 @@ const RadialBarChart = () => {
 						"Total Ticket",
 					],
 				};
+				// Render the chart
+				const chart3 = new ApexCharts(
+					document.querySelector("#chart"),
+					optionsRadial
+				);
+				chart3.render();
+				// Update loading state
+				setLoading(false);
+				// Cleanup
+				// // Render the chart
+				// const radial = new ApexCharts(
+				// 	document.querySelector("#chart"),
+				// 	optionsRadial
+				// );
+				// radial.render();
 
-				const chart = new ApexCharts(chartRef.current, options);
-				chart.render();
+				// Update loading state
 				setLoading(false);
 
+				// Cleanup
 				return () => {
-					chart.destroy();
+					chart3.destroy();
 				};
 			} catch (error) {
 				console.error("Error fetching data:", error);
@@ -87,17 +106,17 @@ const RadialBarChart = () => {
 	}, []);
 
 	if (loading) {
-		return <div>Loading...</div>;
+		return Spinner();
 	}
 
 	return (
 		<>
-			<h1 className="text-center pb-5 pt-10  text-xl font-sans text-gray-600 font-semibold">
+			<h1 className="text-center pb-5 pt-10 text-xl font-sans text-gray-600 font-semibold">
 				Total Number of Passengers:
 			</h1>
 			<div
+				id="chart"
 				className="py-5 shadow-lg shadow-rose-300 border-2 border-t-rose-300"
-				ref={chartRef}
 			></div>
 		</>
 	);

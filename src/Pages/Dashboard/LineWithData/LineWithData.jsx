@@ -1,10 +1,12 @@
 import { useEffect, useState } from "react";
 import ApexCharts from "apexcharts";
 import data from "./../../../../public/allinfo.json"; // Import the JSON data
+import { useSpinner } from "../../../Hooks/useSpinner";
 
 const LineWithData = () => {
 	const [series, setSeries] = useState([]);
-
+	const [loading, setLoading] = useState(true);
+	const { Spinner } = useSpinner();
 	useEffect(() => {
 		// Initialize count variables
 		let maleCount = 0;
@@ -72,7 +74,6 @@ const LineWithData = () => {
 			series: newSeries,
 			chart: {
 				width: "100%",
-
 				type: "polarArea",
 			},
 			labels: [
@@ -133,22 +134,25 @@ const LineWithData = () => {
 		};
 
 		// Render the chart
-		const chart = new ApexCharts(document.querySelector("#chart"), options);
-		chart.render();
-
+		const chart3 = new ApexCharts(document.querySelector("#chart3"), options);
+		chart3.render();
+		// Update loading state
+		setLoading(false);
 		// Cleanup
 		return () => {
-			chart.destroy();
+			chart3.destroy();
 		};
 	}, []);
-
+	if (loading) {
+		return Spinner();
+	}
 	return (
 		<>
 			<h1 className="text-center py-2  text-xl font-sans text-gray-600 font-semibold">
 				Passenger Information:
 			</h1>
 			<div
-				id="chart"
+				id="chart3"
 				className="shadow-lg shadow-sky-400 border-2 border-t-sky-500"
 			></div>
 		</>

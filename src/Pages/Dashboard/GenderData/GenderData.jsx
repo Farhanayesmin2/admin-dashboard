@@ -1,10 +1,11 @@
 import { useEffect, useRef, useState } from "react";
 import ApexCharts from "apexcharts";
+import { useSpinner } from "../../../Hooks/useSpinner";
 
 const GenderData = () => {
 	const chartRef = useRef(null);
 	const [loading, setLoading] = useState(true);
-
+	const { Spinner } = useSpinner();
 	useEffect(() => {
 		const fetchData = async () => {
 			try {
@@ -75,7 +76,7 @@ const GenderData = () => {
 	};
 
 	if (loading) {
-		return <div>Loading...</div>;
+		return Spinner();
 	}
 
 	return (
@@ -84,7 +85,7 @@ const GenderData = () => {
 				Passenger Survive:
 			</h1>
 			<div
-				className="py-5 shadow-lg shadow-green-400 border-2 border-t-green-500"
+				className="py-4  shadow-lg shadow-green-400 border-2 border-t-green-500"
 				ref={chartRef}
 			></div>
 		</>
