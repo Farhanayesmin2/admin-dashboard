@@ -4,6 +4,11 @@ import useColorMode from "../../Hooks/useColorMode";
 const DarkMode = () => {
 	const [colorMode, setColorMode] = useColorMode();
 
+	const handleToggle = () => {
+		const newColorMode = colorMode === "light" ? "dark" : "light";
+		setColorMode(newColorMode);
+	};
+
 	return (
 		<div>
 			<li className="pr-5">
@@ -14,18 +19,11 @@ const DarkMode = () => {
 				>
 					<input
 						type="checkbox"
-						onChange={() => {
-							if (typeof setColorMode === "function") {
-								setColorMode(colorMode === "light" ? "dark" : "light");
-							}
-						}}
-						className=" absolute top-0 z-50 m-0 h-full w-full cursor-pointer opacity-0"
+						onChange={handleToggle}
+						checked={colorMode === "dark"}
+						className="absolute top-0 z-50 m-0 h-full w-full cursor-pointer opacity-0"
 					/>
-					<span
-						className={`shadow-lg shadow-purple-400 bg-white absolute top-1/2 left-3 flex h-8 w-8 -translate-y-1/2 translate-x-0 items-center justify-center rounded-full  shadow-switcher duration-75 ease-linear ${
-							colorMode === "dark" && "!right-[3px] !translate-x-full"
-						}`}
-					>
+					<span className="shadow-lg shadow-purple-400 bg-white absolute top-1/2 left-3 flex h-8 w-8 -translate-y-1/2 translate-x-0 items-center justify-center rounded-full shadow-switcher duration-75 ease-linear">
 						{colorMode === "dark" ? <FaMoon /> : <FaSun />}
 					</span>
 				</label>

@@ -1,7 +1,9 @@
 import { useEffect, useRef, useState } from "react";
 import { Link } from "react-router-dom";
-import { FiChevronUp, FiSettings } from "react-icons/fi";
+import { FiSettings } from "react-icons/fi";
 import { FaRegUser } from "react-icons/fa";
+import { BiSolidContact } from "react-icons/bi";
+import { GiReturnArrow } from "react-icons/gi";
 
 const UserProfile = () => {
 	const [dropdownOpen, setDropdownOpen] = useState(false);
@@ -44,12 +46,13 @@ const UserProfile = () => {
 				to="#"
 			>
 				<span className="hidden text-right lg:block">
-					<span className="block font-600 font-sans font-medium text-black dark:text-white">
+					<span className="block text-gray-600 font-600 font-sans font-medium text-black dark:text-white">
 						Admin Admin
 					</span>
-					<span className="block font-600 font-mono text-xs">Founder</span>
+					<span className="block font-600 font-mono text-gray-600 text-xs">
+						Founder
+					</span>
 				</span>
-
 				<span>
 					<span className="relative flex h-3 top-3  w-3">
 						<span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75"></span>
@@ -61,13 +64,12 @@ const UserProfile = () => {
 						alt="User"
 					/>
 				</span>
-
-				<FiChevronUp
-					className={`hidden fill-current sm:block ${
+				<GiReturnArrow
+					className={`hidden fill-current text-purple-600 sm:block ${
 						dropdownOpen ? "rotate-180" : ""
 					}`}
 					size={22}
-				/>
+				></GiReturnArrow>
 			</Link>
 
 			{/* <!-- Dropdown Start --> */}
@@ -79,31 +81,31 @@ const UserProfile = () => {
 					dropdownOpen === true ? "block" : "hidden"
 				}`}
 			>
-				<ul className="flex flex-col gap-5 border-b border-stroke px-6 py-7.5 dark:border-strokedark">
+				<ul className="flex text-gray-600 flex-col gap-5 border-b border-stroke px-4 py-4 dark:border-strokedark">
 					<li>
 						<Link
 							to="/profile"
-							className="flex items-center gap-3.5 text-sm font-medium duration-300 ease-in-out hover:text-primary lg:text-base"
+							className="hover:text-purple-600   flex items-center gap-3.5 text-sm font-medium duration-300 ease-in-out hover:text-primary lg:text-base"
 						>
-							<FaRegUser className="fill-current" size={22} />
+							<FaRegUser className="text-cyan-400" size={22} />
 							My Profile
 						</Link>
 					</li>
 					<li>
 						<Link
 							to="#"
-							className="flex items-center gap-3.5 text-sm font-medium duration-300 ease-in-out hover:text-primary lg:text-base"
+							className="hover:text-purple-600    flex items-center gap-3.5 text-sm font-medium duration-300 ease-in-out hover:text-primary lg:text-base"
 						>
-							<FaRegUser className="fill-current" size={22} />
+							<BiSolidContact className="text-cyan-400" size={22} />
 							My Contacts
 						</Link>
 					</li>
 					<li>
 						<Link
 							to="/settings"
-							className="flex items-center gap-3.5 text-sm font-medium duration-300 ease-in-out hover:text-primary lg:text-base"
+							className="hover:text-purple-600  flex items-center gap-3.5 text-sm font-medium duration-300 ease-in-out hover:text-primary lg:text-base"
 						>
-							<FiSettings className="fill-current" size={22} />
+							<FiSettings className="text-cyan-400" size={22} />
 							Settings
 						</Link>
 					</li>
