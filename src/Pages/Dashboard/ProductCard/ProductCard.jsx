@@ -2,6 +2,7 @@ import { SlPeople } from "react-icons/sl";
 import { BsHeartPulseFill } from "react-icons/bs";
 import { FaMoneyBillTrendUp } from "react-icons/fa6";
 import { MdOutlineAirplaneTicket } from "react-icons/md";
+
 const ProductCard = () => {
 	return (
 		<div>
