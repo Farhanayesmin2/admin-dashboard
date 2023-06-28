@@ -9,6 +9,8 @@ import Dashboard from "../Pages/Dashboard/Dashboard";
 import Data from "../Pages/DataChart/Data/Data";
 import ProductCard from "../Pages/Dashboard/ProductCard/ProductCard";
 import Charts from "../Pages/Charts/Charts";
+import BarChart from "../Pages/Dashboard/BarChart/BarChart";
+import User from "../Pages/Dashboard/User/User";
 
 const router = createBrowserRouter([
 	{
@@ -48,8 +50,16 @@ const router = createBrowserRouter([
 				element: <Charts></Charts>,
 			},
 			{
+				path: "bar",
+				element: <BarChart></BarChart>,
+			},
+			{
 				path: "product",
 				element: <ProductCard></ProductCard>,
+			},
+			{
+				path: "table",
+				element: <User></User>,
 			},
 		],
 	},

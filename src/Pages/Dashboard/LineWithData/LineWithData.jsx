@@ -131,6 +131,7 @@ const LineWithData = () => {
 			"#F86624",
 			"#3D3D3D",
 		], // Set your custom colors
+
 		responsive: [
 			{
 				breakpoint: 480,
