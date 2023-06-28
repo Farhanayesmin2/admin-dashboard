@@ -69,7 +69,7 @@ const DashboardSidebar = ({ sidebarOpen, setSidebarOpen }) => {
 			}`}
 		>
 			{/* <!-- SIDEBAR HEADER --> */}
-			<div className="font-sans flex text-black bg-purple-500 items-center justify-between gap-2 px-6 py-5.5 lg:py-6.5">
+			<div className="font-sans flex text-black bg-purple-300 items-center justify-between gap-2 px-6 py-5.5 lg:py-6.5">
 				<NavLink to="/">
 					<img
 						className=" rounded-full  mt-2 w-11 h-11"
@@ -88,7 +88,7 @@ const DashboardSidebar = ({ sidebarOpen, setSidebarOpen }) => {
 			</div>
 			{/* <!-- SIDEBAR HEADER --> */}
 
-			<div className=" text-black bg-purple-500 flex flex-col overflow-y-none  duration-300 ease-linear">
+			<div className=" text-black bg-purple-300 flex flex-col overflow-y-none  duration-300 ease-linear">
 				{/* <!-- Sidebar Menu --> */}
 				<nav className="pt-0 no-scrollbar py-4 pl-4 lg:mt-9 lg:pl-6">
 					{/* <!-- Menu Group --> */}
