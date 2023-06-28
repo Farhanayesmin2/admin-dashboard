@@ -1,6 +1,7 @@
 import { Outlet } from "react-router-dom";
-import NavMenu from "../Shared/NavMenu/NavMenu";
+
 import Footer from "../Shared/Footer/Footer";
+import NavMenu from "../Shared/NavMenu/NavMenu";
 
 const Main = () => {
 	return (

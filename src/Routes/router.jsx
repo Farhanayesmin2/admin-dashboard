@@ -5,7 +5,7 @@ import Home from "../Pages/Home/Home";
 import Register from "../Pages/Register/Register";
 import Login from "../Pages/Login/Login";
 import DashboardLayout from "../Layout/DashboardLayout/DashboardLayout";
-import Dashboard from "../Pages/Dashboard/Dashboard";
+
 import Data from "../Pages/DataChart/Data/Data";
 import ProductCard from "../Pages/Dashboard/ProductCard/ProductCard";
 import Charts from "../Pages/Charts/Charts";
@@ -37,10 +37,6 @@ const router = createBrowserRouter([
 		element: <DashboardLayout></DashboardLayout>,
 
 		children: [
-			{
-				path: "dashboard",
-				element: <Dashboard></Dashboard>,
-			},
 			{
 				path: "data",
 				element: <Data></Data>,
