@@ -8,6 +8,7 @@ import DashboardLayout from "../Layout/DashboardLayout/DashboardLayout";
 import Dashboard from "../Pages/Dashboard/Dashboard";
 import Data from "../Pages/DataChart/Data/Data";
 import ProductCard from "../Pages/Dashboard/ProductCard/ProductCard";
+import Charts from "../Pages/Charts/Charts";
 
 const router = createBrowserRouter([
 	{
@@ -41,6 +42,10 @@ const router = createBrowserRouter([
 			{
 				path: "data",
 				element: <Data></Data>,
+			},
+			{
+				path: "charts",
+				element: <Charts></Charts>,
 			},
 			{
 				path: "product",

@@ -94,7 +94,6 @@ const PyramidChart = () => {
 				Total Number of Passengers:
 			</h1>
 			<div
-				id="chart"
 				className="py-2 shadow-lg shadow-purple-400 border-2 border-t-purple-400"
 				ref={chartRef}
 			></div>

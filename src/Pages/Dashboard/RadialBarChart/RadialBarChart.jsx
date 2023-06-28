@@ -9,7 +9,7 @@ const RadialBarChart = () => {
 	useEffect(() => {
 		const fetchData = async () => {
 			try {
-				const response = await fetch("/public/allinfo.json"); // Replace "/data.json" with the actual URL or path to your JSON data
+				const response = await fetch("/allinfo.json"); // Replace "/data.json" with the actual URL or path to your JSON data
 				const jsonData = await response.json();
 				setData(jsonData);
 
@@ -76,7 +76,7 @@ const RadialBarChart = () => {
 				};
 				// Render the chart
 				const chart3 = new ApexCharts(
-					document.querySelector("#chart"),
+					document.querySelector("#chart3"),
 					optionsRadial
 				);
 				chart3.render();
@@ -91,7 +91,6 @@ const RadialBarChart = () => {
 				// radial.render();
 
 				// Update loading state
-				setLoading(false);
 
 				// Cleanup
 				return () => {
@@ -115,7 +114,7 @@ const RadialBarChart = () => {
 				Total Number of Passengers:
 			</h1>
 			<div
-				id="chart"
+				id="chart3"
 				className="py-5 shadow-lg shadow-rose-300 border-2 border-t-rose-300"
 			></div>
 		</>

@@ -13,18 +13,18 @@ const Data = () => {
 				<div>
 					<GenderData></GenderData>
 				</div>
-				{/* <div>
+
+				<div>
 					<LineWithData></LineWithData>
-				</div> */}
-			</div>
-			{/* <div className="grid md:grid-cols-2 sm:grid-cols-1 lg:grid-cols-2 gap-4">
+				</div>
 				<div>
 					<RadialBarChart></RadialBarChart>
 				</div>
 				<div>
 					<PyramidChart></PyramidChart>
 				</div>
-			</div> */}
+			</div>
+
 			<User></User>
 		</>
 	);
